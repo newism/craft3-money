@@ -1,0 +1,41 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Money plugin for Craft CMS 3.x
+ *
+ * Money Field Input
+ *
+ * @author    Leevi Graham
+ * @copyright Copyright (c) 2020 Leevi Graham
+ * @link      https://newism.com.au
+ * @package   Money
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+<div style="display: inline-flex">
+    <div style="display: inline-flex; align-items:center; margin-right: 8px; margin-bottom: 8px;">
+        <div class="prefix" style="margin-right: 8px;"></div>
+        <div class="amount" style="width:100px;">
+            {{ forms.text({
+                label: 'Value',
+                id: name,
+                name: name ~ '[amount]',
+                type: 'number',
+                value: value ? craft.money.decimalFormatter.format(value) : null,
+                step: step
+            }) }}
+        </div>
+        <div class="suffix" style="margin-left: 8px; margin-right: 8px;"></div>
+    </div>
+    <div style="display: inline-block; margin-right: 8px; margin-bottom: 8px;">
+        {{ forms.select({
+            label: 'Currency',
+            id: name,
+            name: name ~ '[currency]',
+            options: currencyOptions,
+            value: value ? value.currency : null
+        }) }}
+    </div>
+</div>

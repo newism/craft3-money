@@ -1,0 +1,32 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Money plugin for Craft CMS
+ *
+ * Money Field Settings
+ *
+ * @author    Leevi Graham
+ * @copyright Copyright (c) 2020 Leevi Graham
+ * @link      https://newism.com.au
+ * @package   Money
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: 'Preferred currencies',
+    instructions: 'Enter a comma delimited list of alphabetical <a href="https://github.com/moneyphp/money/blob/master/resources/currency.php">currency codes</a>. These values are appended to the `preferredCurrencies` plugin setting.',
+    id: 'preferredCurrencies',
+    name: 'preferredCurrencies',
+    value: field['preferredCurrencies']
+}) }}
+
+{{ forms.textField({
+    label: 'Excluded currencies',
+    instructions: 'Enter a comma delimited list of alphabetical <a href="https://github.com/moneyphp/money/blob/master/resources/currency.php">currency codes</a>. These values are appended to the `excludedCurrencies` plugin setting.',
+    id: 'excludedCurrencies',
+    name: 'excludedCurrencies',
+    value: field['excludedCurrencies']
+}) }}

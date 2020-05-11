@@ -1,0 +1,39 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Money plugin for Craft CMS 3.x
+ *
+ * Money Settings.twig
+ *
+ * @author    Leevi Graham
+ * @copyright Copyright (c) 2020 Leevi Graham
+ * @link      https://newism.com.au
+ * @package   Money
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% set fileConfig = craft.app.config.getConfigFromFile('money') %}
+
+{#{{ dump(settings) }}#}
+{#{{ dump(projectConfigSettings) }}#}
+
+{{ forms.textField({
+    label: 'Preferred Currencies',
+    id: 'preferredCurrencies',
+    name: 'preferredCurrencies',
+    instructions: 'Enter a comma delimited list of alphabetical <a href="https://github.com/moneyphp/money/blob/master/resources/currency.php">currency codes</a>',
+    value: projectConfigSettings.preferredCurrencies,
+    warning: (fileConfig.preferredCurrencies is defined) ? 'This is being overridden by the `preferredCurrencies` setting in `config/money.php`.' : null,
+}) }}
+
+{{ forms.textField({
+    label: 'Excluded Currencies',
+    id: 'excludedCurrencies',
+    name: 'excludedCurrencies',
+    instructions: 'Enter a comma delimited list of alphabetical <a href="https://github.com/moneyphp/money/blob/master/resources/currency.php">currency codes</a>',
+    value: projectConfigSettings.excludedCurrencies,
+    warning: (fileConfig.excludedCurrencies is defined) ? 'This is being overridden by the `excludedCurrencies` setting in `config/money.php`.' : null,
+}) }}

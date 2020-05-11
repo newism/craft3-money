@@ -1,0 +1,46 @@
+{
+    "name": "newism/craft3-money",
+    "description": "Money Fieldtype for CraftCMS v3",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "money"
+    ],
+    "support": {
+        "docs": "https://github.com/newism/craft3-money/blob/master/README.md",
+        "issues": "https://github.com/newism/craft3-money/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leevi Graham",
+            "homepage": "https://newism.com.au"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.4.0",
+        "moneyphp/money": "^3.3",
+        "symfony/intl": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "newism\\money\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Money",
+        "handle": "money",
+        "developer": "Leevi Graham",
+        "developerUrl": "https://newism.com.au",
+        "documentationUrl": "https://github.com/newism/money/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/newism/money/master/CHANGELOG.md",
+        "components": {
+            "money": "MoneyService"
+        },
+        "class": "newism\\money\\Plugin"
+    }
+}
