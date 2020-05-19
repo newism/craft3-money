@@ -123,6 +123,10 @@ class MoneyField extends Field
             return $value;
         }
 
+        if(Craft::$app->request->isPost && is_array($value) && $value['amount'] === '') {
+            return null;
+        }
+
         if (is_array($value)) {
             $moneyParser = Plugin::$plugin->money->getDecimalParser();
             $value = $moneyParser->parse($value['amount'], $value['currency']);
