@@ -2,7 +2,7 @@
     "name": "newism/craft3-money",
     "description": "Money Fieldtype for CraftCMS v3",
     "type": "craft-plugin",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "keywords": [
         "craft",
         "cms",
