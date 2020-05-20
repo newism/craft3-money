@@ -123,7 +123,7 @@ class MoneyField extends Field
             return $value;
         }
 
-        if(Craft::$app->request->isPost && is_array($value) && $value['amount'] === '') {
+        if(is_array($value) && $value['amount'] === '') {
             return null;
         }
 
