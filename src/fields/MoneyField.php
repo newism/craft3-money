@@ -13,6 +13,10 @@ namespace newism\money\fields;
 use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
+use craft\base\PreviewableFieldInterface;
+use craft\base\SortableFieldInterface;
+use craft\fields\data\MultiOptionsFieldData;
+use craft\fields\data\SingleOptionFieldData;
 use craft\helpers\Json;
 use Money\Currency;
 use Money\Money;
@@ -33,7 +37,7 @@ use yii\db\Schema;
  * @package   Money
  * @since     1.0.0
  */
-class MoneyField extends Field
+class MoneyField extends Field implements SortableFieldInterface, PreviewableFieldInterface
 {
     // Public Properties
     // =========================================================================
@@ -101,7 +105,7 @@ class MoneyField extends Field
      */
     public function getContentColumnType(): string
     {
-        return Schema::TYPE_TEXT;
+        return Schema::TYPE_JSON;
     }
 
     /**
@@ -120,7 +124,7 @@ class MoneyField extends Field
     public function normalizeValue($value, ElementInterface $element = null): ?Money
     {
         if (empty($value)) {
-            return $value;
+            return null;
         }
 
         if(is_array($value) && $value['amount'] === '') {
@@ -442,6 +446,35 @@ class MoneyField extends Field
         }
 
         return parent::isValueEmpty($value, $element);
+    }
+
+    /**
+     * Returns the sort option array that should be included in the element’s
+     * [[\craft\base\ElementInterface::sortOptions()|sortOptions()]] response.
+     *
+     * @return array
+     * @see \craft\base\SortableFieldInterface::getSortOption()
+     * @since 3.2.0
+     */
+    public function getSortOption(): array
+    {
+        $field = ($this->columnPrefix ?: 'field_') . $this->handle;
+        $orderBy = sprintf('CAST(JSON_UNQUOTE(JSON_EXTRACT(`%s`, \'$.amount\')) AS INT)', $field);
+
+        return [
+            'label' => Craft::t('site', $this->name),
+            'orderBy' =>  [$orderBy, 'elements.id'],
+            'attribute' => 'field:' . $this->id,
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getTableAttributeHtml($value, ElementInterface $element): string
+    {
+        /** @var $value Money */
+        return json_encode($value->jsonSerialize());
     }
 
 }
