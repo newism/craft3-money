@@ -17,15 +17,13 @@
 
 {% set fileConfig = craft.app.config.getConfigFromFile('money') %}
 
-{#{{ dump(settings) }}#}
-{#{{ dump(projectConfigSettings) }}#}
-
 {{ forms.textField({
+    first: true,
     label: 'Preferred Currencies',
     id: 'preferredCurrencies',
     name: 'preferredCurrencies',
     instructions: 'Enter a comma delimited list of alphabetical <a href="https://github.com/moneyphp/money/blob/master/resources/currency.php">currency codes</a>',
-    value: projectConfigSettings.preferredCurrencies,
+    value: settings.preferredCurrencies,
     warning: (fileConfig.preferredCurrencies is defined) ? 'This is being overridden by the `preferredCurrencies` setting in `config/money.php`.' : null,
 }) }}
 
@@ -34,6 +32,6 @@
     id: 'excludedCurrencies',
     name: 'excludedCurrencies',
     instructions: 'Enter a comma delimited list of alphabetical <a href="https://github.com/moneyphp/money/blob/master/resources/currency.php">currency codes</a>',
-    value: projectConfigSettings.excludedCurrencies,
+    value: settings.excludedCurrencies,
     warning: (fileConfig.excludedCurrencies is defined) ? 'This is being overridden by the `excludedCurrencies` setting in `config/money.php`.' : null,
 }) }}

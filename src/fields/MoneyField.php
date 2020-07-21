@@ -132,8 +132,12 @@ class MoneyField extends Field implements SortableFieldInterface, PreviewableFie
         }
 
         if (is_array($value)) {
-            $moneyParser = Plugin::$plugin->money->getDecimalParser();
-            $value = $moneyParser->parse($value['amount'], $value['currency']);
+            if(isset($value['formSubmission'])) {
+                $moneyParser = Plugin::$plugin->money->getDecimalParser();
+                $value = $moneyParser->parse($value['amount'], $value['currency']);
+            } else {
+                $value = new Money($value['amount'], new Currency($value['currency']));
+            }
         }
 
         if (is_string($value)) {
