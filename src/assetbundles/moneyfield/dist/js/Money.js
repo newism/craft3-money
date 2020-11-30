@@ -33,8 +33,8 @@
             var _this = this;
 
             $(function () {
-                let currencyEl = $('select', _this.element);
-                let amountEl = $('input', _this.element);
+                let currencyEl = $('#'+_this.options.namespace+'-currency', _this.element);
+                let amountEl = $('#'+_this.options.namespace+'-amount', _this.element);
                 let prefixEl = $('.prefix', _this.element);
                 let suffixEl = $('.suffix', _this.element);
 
